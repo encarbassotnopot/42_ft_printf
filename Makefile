@@ -3,6 +3,7 @@ OBJ_FILES = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC_FILES))
 HDR_FILES = ft_printf.h libft/libft.h
 
 BUILD_DIR = build
+INCLUDE_DIR = include
 
 NAME = libprintf.a
 LIBFT = libft/libft.a

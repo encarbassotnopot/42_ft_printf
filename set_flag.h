@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   set_flag.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 17:32:22 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/06/21 19:37:25 by ecoma-ba         ###   ########.fr       */
+/*   Created: 2024/07/03 11:28:43 by ecoma-ba          #+#    #+#             */
+/*   Updated: 2024/07/03 11:29:59 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <unistd.h>
+#ifndef SET_FLAG_H
+# define SET_FLAG_H
 
-void	ft_putendl_fd(char *s, int fd)
-{
-	if (fd < 0)
-		return ;
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
-}
+void	set_hash(t_format fmt);
+void	set_zero(t_format fmt);
+void	set_minus(t_format fmt);
+void	set_space(t_format fmt);
+void	set_plus(t_format fmt);
+#endif
