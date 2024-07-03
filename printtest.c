@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 11:07:52 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/03 11:42:47 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:41:18 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,15 @@
 int	main(void)
 {
 	int	a;
+	char * str = "abcd\n";
+	printf("%c", *str++);
+	printf("%c", *str++);
+	printf("%c", *str++);
+	printf("%c", *str++);
+	printf("%c", *str++);
 
 	a = 2;
-	printf("%c, %s, %p, %d, %i, %u, %x, %X, %%\n", 'c', "str", &a, a, a, a, a, a);
+	printf("%0-010.12c, %.00s, %p, %d, %i, %u, %x, %X, %0-010.12%\n", 'c', "str", &a, a, a, a, a, a);
 	/*printf("%c, %s, %p, %d, %i, %u, %x, %X, %%\n", 0, 0, 0, 0, 0, 0, 0, 0);*/
  //append 0x per a hex, 0 per a octal
 	printf("%#x, %#X, %#o, %%\n", a, a, a);

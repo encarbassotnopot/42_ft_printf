@@ -6,14 +6,15 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:56:45 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/03 11:30:35 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:26:08 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+# include <stddef>;
 
-typedef struct s_format
+typedef struct s_fmt
 {
 	char			alternate;
 	char			padding;
@@ -21,7 +22,8 @@ typedef struct s_format
 	unsigned int	min_width;
 	unsigned int	precision;
 	char			conversion;
-}					t_format;
+	size_t			len;
+}					t_fmt;
 
 int					ft_printf(const char *format, ...);
 #endif

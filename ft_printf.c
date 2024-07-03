@@ -6,63 +6,112 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:50:27 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/03 12:00:04 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/03 16:38:52 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "libft.h"
+#include "set_flag.h"
+#include "custom_print.h"
 #include <stdarg.h>
 #include <stdlib.h>
 
-// returns -1 if the given char is not one of the following: "#0- +"
-// otherwise it returns the index of the function we'll have to call to set it.
-int	get_flag_idx(unsigned char c)
+t_fmt	*init_fmt(void)
 {
-	if (c == '#')
-		return (0);
-	if (c == '0')
-		return (1);
-	if (c == '-')
-		return (2);
-	if (c == ' ')
-		return (3);
-	if (c == '+')
-		return (4);
-	return (-1);
-}
+	t_fmt	*fmt;
 
-t_format	init_format(void)
-{
-	t_format	fmt;
-
-	fmt = malloc(sizeof(t_format));
+	fmt = calloc(1, sizeof(t_fmt));
 	if (!fmt)
 		return (NULL);
-	fmt->alternate = '\0';
-	fmt->padding = '\0';
-	fmt->sign = '\0';
-	fmt->min_width = 0;
-	fmt->precision = 0;
-	fmt->conversion '\0';
 	return (fmt);
 }
 
-t_format	parse_format(unsigned char *c)
+t_fmt	*parse_format(unsigned char *c)
 {
-	t_format
-		fmt;
-	const void	set_flag[]
-		(t_format)
-		= {set_hash, set_zero, set_minus, set_space, set_plus};
+	t_fmt				*fmt;
+	const unsigned char	*orig = c;
 
-	fmt = init_format();
+	void (*set_flag[])(t_fmt *) = {set_hash, set_zero, set_minus, set_space,
+		set_plus};
+	fmt = init_fmt();
 	if (!fmt)
 		return (NULL);
-	while (*c && get_flag_idx(*c) != -1)
+	while (ft_strchr_idx("#0- +", *c) != -1)
+		set_flag[get_flag_idx(*c++)](fmt);
+	fmt->min_width = ft_raw_atoi_fwd(&c);
+	if (*c++ == '.')
+		fmt->precision = ft_raw_atoi_fwd(&c);
+	if (ft_strchr_idx("cspdiuxX", *c) != -1)
 	{
-		set_flag[get_flag_idx(*c)](fmt);
-		c++;
+		fmt->conversion = c;
+		fmt->len = c - orig;
+		return (fmt);
 	}
+	else
+	{
+		free(fmt);
+		return (NULL);
+	}
+}
+
+int	format_picker(t_fmt fmt, va_list ap)
+{
+	if (fmt->conversion == 'c')
+		return (print_char(fmt, va_arg(ap, int));
+	if (fmt->conversion == 's')
+		return (print_str(fmt, va_arg(ap, char *));
+	if (fmt->conversion == 'p')
+		return (print_ptr(fmt, va_arg(ap, void *));
+	if (fmt->conversion == 'd' || fmt->conversion == 'i')
+		return (print_int(fmt, va_arg(ap, int));
+	if (fmt->conversion == 'u' || fmt->conversion == 'x' || fmt->conversion == 'X')
+		return (print_unsigned(fmt, va_arg(ap, unsigned int));
+	return (0);
+}
+
+int	format_str(unsigned char **str, va_list ap)
+{
+	t_fmt	fmt;
+	int		count;
+
+	count = 0;
+	if (*(*str + 1) == '%')
+	{
+		ft_putchar_fd('%', 1);
+		*str += 2;
+		return (1);
+	}
+	else
+		fmt = parse_format(*str);
+	if (!fmt)
+	{
+		ft_putchar_fd('%', 1);
+		*str += 1;
+		return (1);
+	}
+	*str += fmt->len;
+	count = format_picker(fmt, ap);
+	free(fmt);
+	return (count)
+}
+
+int	traverse_str(unsigned char *str, va_list ap)
+{
+	int	count;
+
+	count = 0;
+	while (*str)
+	{
+		if (*str == '%')
+			count += format_str(&str, ap);
+		else
+		{
+			ft_putchar_fd(*str++, 1);
+			count++;
+		}
+	}
+	return (count);
 }
 
 int	ft_printf(const char *format, ...)
@@ -71,15 +120,9 @@ int	ft_printf(const char *format, ...)
 	unsigned char	*str;
 	va_list			ap;
 
-	count = 0;
 	str = (unsigned char *)format;
 	va_start(ap, format);
-	while (str[count])
-	{
-		if (str[count] == '%')
-		{
-			va_arg();
-			handle_flags(str + count);
-		}
-	}
+	count = traverse_str(str, ap);
+	va_end(ap);
+	return (count);
 }

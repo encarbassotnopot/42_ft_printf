@@ -9,7 +9,7 @@ NAME = libprintf.a
 LIBFT = libft/libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -I. -Ilibft
 
 ARFLAGS = rcs
 
