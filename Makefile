@@ -1,4 +1,4 @@
-SRC_FILES = ft_printf.c
+SRC_FILES = $(wildcard *.c)
 OBJ_FILES = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC_FILES))
 HDR_FILES = ft_printf.h libft/libft.h
 
@@ -17,6 +17,9 @@ all: $(NAME)
 
 $(NAME): $(OBJ_FILES) $(LIBFT)
 	$(AR) $(ARFLAGS) $@ $?
+
+$(BUILD_DIR)/printtest.o: printtest.c $(HDR_FILES) Makefile | $(BUILD_DIR)
+	$(CC) -c $< -o $@ -I. -Ilibft
 
 $(BUILD_DIR)/%.o: %.c $(HDR_FILES) Makefile | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
