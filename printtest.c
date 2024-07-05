@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 11:07:52 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/05 13:55:32 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:31:55 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -20,6 +20,15 @@ int	main(void)
 	char	*str;
 
 	str = "abcd\n";
+	printf("conversion: %%5.0ca, val: f\n");
+	printf("%d\n", printf("conv og: %5.0ca\nret: ", 'f'));
+	printf("%d\n", ft_printf("conv ft: %5.0ca\nret: ", 'f'));
+	printf("conversion: %%-5.0ca, val: f\n");
+	printf("%d\n", printf("conv og: %-5.0ca\nret: ", 'f'));
+	printf("%d\n", ft_printf("conv ft: %-5.0ca\nret: ", 'f'));
+	printf("conversion: %%5.0da, val: 0\n");
+	printf("%d\n", printf("conv og: %5.0da\nret: ", 0));
+	printf("%d\n", ft_printf("conv ft: %5.0da\nret: ", 0));
 	printf("conversion: %%5da, val: 15\n");
 	printf("%d\n", printf("conv og: %5da\nret: ", 15));
 	printf("%d\n", ft_printf("conv ft: %5da\nret: ", 15));

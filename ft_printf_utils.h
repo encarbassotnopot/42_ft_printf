@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:23:48 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/05 11:13:34 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:11:44 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void		pad(char **orig, char padding, size_t total_len, char side);
 void	pad_spaces(t_fmt *fmt, char **orig);
 void	pad_zeroes(t_fmt *fmt, char **orig);
 int		print_int(t_fmt *fmt, int arg, int fd);
+int		print_char(t_fmt *fmt, unsigned char arg, int fd);
 void	set_hash(t_fmt *fmt);
 void	set_zero(t_fmt *fmt);
 void	set_minus(t_fmt *fmt);

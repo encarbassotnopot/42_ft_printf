@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:05:48 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/05 13:55:53 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:12:57 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ t_fmt	*parse_format(unsigned char *c)
 
 int	format_picker(t_fmt *fmt, va_list *ap, int fd)
 {
-	/*	if (fmt->conversion == 'c')
-			return (print_char(fmt, va_arg(ap, int), fd));
-		if (fmt->conversion == 's')
-			return (print_str(fmt, va_arg(ap, char *), fd));
-		if (fmt->conversion == 'p')
-			return (print_ptr(fmt, va_arg(ap, void *), fd));*/
+	if (fmt->conversion == 'c')
+		return (print_char(fmt, (unsigned char)va_arg(*ap, int), fd));
+	/*if (fmt->conversion == 's')
+		return (print_str(fmt, va_arg(ap, char *), fd));
+	if (fmt->conversion == 'p')
+		return (print_ptr(fmt, va_arg(ap, void *), fd));*/
 	if (fmt->conversion == 'd' || fmt->conversion == 'i')
 		return (print_int(fmt, va_arg(*ap, int), fd));
 	/*if (fmt->conversion == 'u' || fmt->conversion == 'x'

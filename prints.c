@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/05 13:53:09 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/05 14:29:52 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,34 +69,42 @@ void	add_sign(t_fmt *fmt, char **orig)
 		pad(orig, fmt->sign, ft_strlen(*orig) + 1, 'l');
 }
 
-/*int	print_char(t_fmt *fmt, int arg, int fd);*/
+int	print_char(t_fmt *fmt, unsigned char arg, int fd)
+{
+	char	*out;
+	int		len;
+
+	out = ft_calloc(sizeof(char), 2);
+	if (!out)
+		return (0);
+	out[0] = arg;
+	pad_spaces(fmt, &out);
+	len = ft_strlen(out);
+	ft_putstr_fd(out, fd);
+	free(out);
+	return (len);
+}
+
 /*int	print_str(t_fmt *fmt, char *arg, int fd);*/
 /*int	print_ptr(t_fmt *fmt, void *arg, int fd);*/
 int	print_int(t_fmt *fmt, int arg, int fd)
 {
-	char			*num;
-	int				do_print;
-	int				len;
-	unsigned int	abs;
+	char	*num;
+	int		len;
 
-	num = NULL;
-	do_print = 1;
 	if (arg < 0)
 	{
 		fmt->sign = '-';
-		abs = ~(arg - 1);
+		arg = ~(arg - 1);
 	}
-	else
-		abs = arg;
-	if (fmt->precision == 0 && arg == 0)
-		do_print = 0;
-	else
-		num = ft_utoa(abs);
-	if (do_print)
+	if (!(fmt->precision == 0 && arg == 0))
 	{
+		num = ft_utoa((unsigned int)arg);
 		pad_zeroes(fmt, &num);
 		add_sign(fmt, &num);
 	}
+	else
+		num = calloc(sizeof(char), 1);
 	pad_spaces(fmt, &num);
 	len = ft_strlen(num);
 	ft_putstr_fd(num, fd);
