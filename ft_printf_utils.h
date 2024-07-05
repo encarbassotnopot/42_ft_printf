@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:23:48 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/04 13:51:34 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:13:34 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 
 t_fmt	*init_fmt(void);
 t_fmt	*parse_format(unsigned char *c);
-int		format_picker(t_fmt *fmt, va_list ap, int fd);
-int		format_str(unsigned char **str, va_list ap, int fd);
-int		traverse_str(unsigned char *str, va_list ap, int fd);
-int		ft_printf_fd(const char *format, va_list ap, int fd);
+int		format_picker(t_fmt *fmt, va_list *ap, int fd);
+int		format_str(unsigned char **str, va_list *ap, int fd);
+int		traverse_str(unsigned char *str, va_list *ap, int fd);
+int		ft_printf_fd(const char *format, va_list *ap, int fd);
 t_fmt	*init_fmt(void);
 t_fmt	*parse_format(unsigned char *c);
-int		format_picker(t_fmt *fmt, va_list ap, int fd);
-int		format_str(unsigned char **str, va_list ap, int fd);
+int		format_picker(t_fmt *fmt, va_list *ap, int fd);
+int		format_str(unsigned char **str, va_list *ap, int fd);
 void		pad(char **orig, char padding, size_t total_len, char side);
 void	pad_spaces(t_fmt *fmt, char **orig);
 void	pad_zeroes(t_fmt *fmt, char **orig);

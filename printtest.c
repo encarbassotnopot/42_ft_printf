@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 11:07:52 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/04 15:43:25 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:55:32 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
@@ -20,15 +20,29 @@ int	main(void)
 	char	*str;
 
 	str = "abcd\n";
-	printf("%d\n", printf("conv og: %+5da\nret: ", 15));
-	printf("%d\n", ft_printf("conv ft: %+5da\nret: ", 15));
+	printf("conversion: %%5da, val: 15\n");
+	printf("%d\n", printf("conv og: %5da\nret: ", 15));
+	printf("%d\n", ft_printf("conv ft: %5da\nret: ", 15));
+	printf("conversion: %%-5da, val: 15\n");
+	printf("%d\n", printf("conv og: %-5da\nret: ", 15));
+	printf("%d\n", ft_printf("conv ft: %-5da\nret: ", 15));
+	printf("conversion: %%+15.7da, val: 15\n");
+	printf("%d\n", printf("conv og: %+15.7da\nret: ", 15));
+	printf("%d\n", ft_printf("conv ft: %+15.7da\nret: ", 15));
+	printf("conversion: %%+015.7da, val: 15\n");
+	printf("%d\n", printf("conv og: %+015.7da\nret: ", 15));
+	printf("%d\n", ft_printf("conv ft: %+015.7da\nret: ", 15));
+	printf("conversion: %%5.3da, val: 15\n");
 	printf("%d\n", printf("conv og: %+5.3da\nret: ", 15));
 	printf("%d\n", ft_printf("conv ft: %+5.3da\nret: ", 15));
+	printf("conversion: %% da, val: -15\n");
 	printf("%d\n", printf("conv og: % da\nret: ", -15));
 	printf("%d\n", ft_printf("conv ft: % da\nret: ", -15));
-	printf("%d\n", printf("conv og: % da\nret: ", 15));
-	printf("%d\n", ft_printf("conv ft: %+da\nret: ", 15));
+	printf("conversion: %%+da, val: 15\n");
 	printf("%d\n", printf("conv og: %+da\nret: ", 15));
+	printf("%d\n", ft_printf("conv ft: %+da\nret: ", 15));
+	printf("conversion: %% da, val: 15\n");
+	printf("%d\n", printf("conv og: % da\nret: ", 15));
 	printf("%d\n", ft_printf("conv ft: % da\nret: ", 15));
 
 	a = 2;

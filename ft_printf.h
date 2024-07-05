@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:56:45 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/04 12:22:31 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:13:11 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ typedef struct s_fmt
 }			t_fmt;
 
 int			ft_printf(const char *format, ...);
-int			ft_printf_fd(const char *format, va_list ap, int fd);
+int			ft_printf_fd(const char *format, va_list *ap, int fd);
 #endif

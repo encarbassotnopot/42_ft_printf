@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:50:27 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/04 12:30:21 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/05 11:12:41 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
-int	traverse_str(unsigned char *str, va_list ap, int fd)
+int	traverse_str(unsigned char *str, va_list *ap, int fd)
 {
 	int	count;
 
@@ -34,7 +34,7 @@ int	traverse_str(unsigned char *str, va_list ap, int fd)
 	return (count);
 }
 
-int	ft_printf_fd(const char *format, va_list ap, int fd)
+int	ft_printf_fd(const char *format, va_list *ap, int fd)
 {
 	int				count;
 	unsigned char	*str;
@@ -52,7 +52,7 @@ int	ft_printf(const char *format, ...)
 	va_list	ap;
 
 	va_start(ap, format);
-	count = ft_printf_fd(format, ap, 1);
+	count = ft_printf_fd(format, &ap, 1);
 	va_end(ap);
 	return (count);
 }

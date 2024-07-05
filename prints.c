@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/04 15:45:51 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/05 13:53:09 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,29 @@
 #include "libft.h"
 #include <stdlib.h>
 
-void	pad(char **orig, char padding, size_t total_len, char side)
+void	pad(char **orig, char pad_ch, size_t total_len, char side)
 {
 	char	*new;
+	char	*pad;
 	size_t	orig_len;
+	size_t	pad_len;
 
 	orig_len = ft_strlen(*orig);
-	new = malloc(total_len + 1);
-	if (!new)
+	pad_len = total_len - orig_len;
+	pad = ft_calloc(pad_len + 1, sizeof(char));
+	if (!pad)
 	{
 		free(*orig);
 		*orig = NULL;
 		return ;
 	}
-	ft_memset(new, padding, total_len);
+	ft_memset(pad, pad_ch, pad_len);
 	if (side == 'l')
-		ft_memcpy(new + total_len - orig_len,  *orig, orig_len);
+		new = ft_strjoin(pad, *orig);
 	else if (side == 'r')
-		ft_memcpy(new, *orig, orig_len);
-	new[total_len + 1] = '\0';
+		new = ft_strjoin(*orig, pad);
 	free(*orig);
+	free(pad);
 	*orig = new;
 }
 
@@ -51,6 +54,8 @@ void	pad_spaces(t_fmt *fmt, char **orig)
 
 void	pad_zeroes(t_fmt *fmt, char **orig)
 {
+	if (fmt->precision < 0)
+		return ;
 	if (fmt->precision > (int)ft_strlen(*orig))
 	{
 		if (fmt->padding == '0')
@@ -81,10 +86,12 @@ int	print_int(t_fmt *fmt, int arg, int fd)
 		fmt->sign = '-';
 		abs = ~(arg - 1);
 	}
+	else
+		abs = arg;
 	if (fmt->precision == 0 && arg == 0)
 		do_print = 0;
 	else
-		num = ft_itoa(abs);
+		num = ft_utoa(abs);
 	if (do_print)
 	{
 		pad_zeroes(fmt, &num);

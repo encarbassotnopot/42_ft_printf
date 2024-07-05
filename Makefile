@@ -9,7 +9,7 @@ NAME = libprintf.a
 LIBFT = libft/libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I. -Ilibft
+CFLAGS = -Wall -Wextra -Werror -g -I. -Ilibft -fsanitize=address
 
 ARFLAGS = rcs
 
