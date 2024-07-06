@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/05 14:29:52 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/06 10:27:29 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,22 @@ int	print_char(t_fmt *fmt, unsigned char arg, int fd)
 	return (len);
 }
 
-/*int	print_str(t_fmt *fmt, char *arg, int fd);*/
-/*int	print_ptr(t_fmt *fmt, void *arg, int fd);*/
+int	print_str(t_fmt *fmt, const char *arg, int fd)
+{
+	char	*out;
+	int		len;
+
+	out = ft_substr(arg, 0, fmt->precision);
+	if (!out)
+		return (0);
+	pad_spaces(fmt, &out);
+	len = ft_strlen(out);
+	ft_putstr_fd(out, fd);
+	free(out);
+	return (len);
+}
+
+/*int	print_ptr(t_fmt *fmt, void *arg, int fd)*/
 int	print_int(t_fmt *fmt, int arg, int fd)
 {
 	char	*num;
@@ -104,7 +118,7 @@ int	print_int(t_fmt *fmt, int arg, int fd)
 		add_sign(fmt, &num);
 	}
 	else
-		num = calloc(sizeof(char), 1);
+		num = ft_calloc(sizeof(char), 1);
 	pad_spaces(fmt, &num);
 	len = ft_strlen(num);
 	ft_putstr_fd(num, fd);
@@ -112,4 +126,34 @@ int	print_int(t_fmt *fmt, int arg, int fd)
 	return (len);
 }
 
-/*int	print_unsigned(t_fmt *fmt, unsigned int arg, int fd);*/
+char *get_nbr_base (unsigned int num, char base)
+{
+	if (base == 'o')
+		return (ft_utoa_base(num, "01234567"))
+	if (base == 'u')
+		return (ft_utoa_base(num, "0123456789"))
+	if (base == 'x')
+		return (ft_utoa_base(num, "0123456789abcdef"))
+	if (base == 'X')
+		return (ft_utoa_base(num, "0123456789ABCDEF"))
+	return (NULL);
+}
+
+int	print_unsigned(t_fmt *fmt, unsigned int arg, int fd)
+{
+	char	*num;
+	int		len;
+
+	if (!(fmt->precision == 0 && arg == 0))
+	{
+		num = ft_utoa_base((unsigned int)arg);
+		pad_zeroes(fmt, &num);
+	}
+	else
+		num = ft_calloc(sizeof(char), 1);
+	pad_spaces(fmt, &num);
+	len = ft_strlen(num);
+	ft_putstr_fd(num, fd);
+	free(num);
+	return (len);
+}

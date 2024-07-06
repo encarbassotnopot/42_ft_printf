@@ -6,12 +6,12 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 11:07:52 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/05 14:31:55 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/06 09:47:47 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 #include "ft_printf_utils.h"
-#include "libft.h"
+/*#include "libft.h"*/
 #include <stdio.h>
 
 int	main(void)
@@ -19,7 +19,14 @@ int	main(void)
 	int		a;
 	char	*str;
 
-	str = "abcd\n";
+	printf("%d\n", printf("og c: %05.2c, s:%-05.1sa\nret: ", 'c',"1234567890"));
+	printf("%d\n", ft_printf("ft c: %05.2c, s:%-05.1sa\nret: ", 'c',"1234567890"));
+	printf("%d\n", printf("og c: %05.2c, s:%.7sa\nret: ", 'c',"1234567890"));
+	printf("%d\n", ft_printf("ft c: %05.2c, s:%.7sa\nret: ", 'c',"1234567890"));
+	printf("%d\n", printf("og c: %05.2c, s:%.12sa\nret: ", 'c',"1234567890"));
+	printf("%d\n", ft_printf("ft c: %05.2c, s:%.12sa\nret: ", 'c',"1234567890"));
+	printf("%d\n", printf("og c: %05.2c, s:%+-10.9sa\nret: ", 'c',"1234567890"));
+	printf("%d\n", ft_printf("ft c: %05.2c, s:%+-10.9sa\nret: ", 'c',"1234567890"));
 	printf("conversion: %%5.0ca, val: f\n");
 	printf("%d\n", printf("conv og: %5.0ca\nret: ", 'f'));
 	printf("%d\n", ft_printf("conv ft: %5.0ca\nret: ", 'f'));
