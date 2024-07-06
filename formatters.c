@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 11:15:11 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/06 13:03:34 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:34:02 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	pad_spaces(t_fmt *fmt, char **orig)
 	{
 		if (fmt->padding == '-')
 			pad(orig, ' ', fmt->min_width, 'r');
-		else
+		else if (fmt->padding == '\0')
 			pad(orig, ' ', fmt->min_width, 'l');
 	}
 }
@@ -57,13 +57,12 @@ void	pad_zeroes(t_fmt *fmt, char **orig)
 	int	len;
 
 	len = ft_strlen(*orig);
-	if (fmt->precision > len )
+	if (fmt->precision > len)
 	{
 		len = fmt->precision;
-		if (fmt->padding == '0')
-			pad(orig, '0', fmt->precision, 'l');
+		pad(orig, '0', fmt->precision, 'l');
 	}
-	if (fmt->alternate && orig)
+	if (fmt->alternate == '#')
 	{
 		if (ft_strchr_idx("xX", fmt->conversion) != -1)
 		{

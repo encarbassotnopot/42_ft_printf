@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/06 13:02:54 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/06 15:58:24 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,11 @@ int	print_ptr(t_fmt *fmt, void *arg, int fd)
 	char	*num;
 	int		len;
 
-	fmt->precision = -1;
-	fmt->alternate = '#';
 	if (arg == 0)
 		return (print_str(fmt, "(nil)", fd));
+	fmt->precision = -1;
+	fmt->alternate = '#';
+	fmt->conversion = 'x';
 	num = ft_sttoa_base((size_t)arg, "0123456789abcdef");
 	pad_zeroes(fmt, &num);
 	pad_spaces(fmt, &num);
@@ -100,6 +101,8 @@ int	print_unsigned(t_fmt *fmt, unsigned int arg, int fd)
 	if (!(fmt->precision == 0 && arg == 0))
 	{
 		num = get_nbr_base(arg, fmt->conversion);
+		if (arg == 0)
+			fmt->alternate = '\0';
 		pad_zeroes(fmt, &num);
 	}
 	else
