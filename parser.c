@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:05:48 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/06 09:42:45 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/06 12:26:01 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_fmt	*parse_format(unsigned char *c)
 		c++;
 		fmt->precision = ft_raw_atoi_fwd((char **)&c);
 	}
-	if (ft_strchr_idx("cspdiuxX", *c) != -1)
+	if (ft_strchr_idx("cspdiuxXo%", *c) != -1)
 	{
 		fmt->conversion = *c;
 		fmt->len = c - orig + 1;
@@ -69,14 +69,14 @@ int	format_picker(t_fmt *fmt, va_list *ap, int fd)
 	if (fmt->conversion == 'c')
 		return (print_char(fmt, (unsigned char)va_arg(*ap, int), fd));
 	if (fmt->conversion == 's')
-		return (print_str(fmt, (const char*)va_arg(*ap, int*), fd));
-	/*if (fmt->conversion == 'p')
-		return (print_ptr(fmt, va_arg(*ap, void *), fd));*/
+		return (print_str(fmt, (const char *)va_arg(*ap, int *), fd));
+	if (fmt->conversion == 'p')
+		return (print_ptr(fmt, va_arg(*ap, void *), fd));
 	if (fmt->conversion == 'd' || fmt->conversion == 'i')
 		return (print_int(fmt, va_arg(*ap, int), fd));
-	/*if (fmt->conversion == 'u' || fmt->conversion == 'x'
-		|| fmt->conversion == 'X')
-		return (print_unsigned(fmt, va_arg(*ap, unsigned int), fd));*/
+	if (fmt->conversion == 'o' || fmt->conversion == 'u'
+		|| fmt->conversion == 'x' || fmt->conversion == 'X')
+		return (print_unsigned(fmt, va_arg(*ap, unsigned int), fd));
 	return (0);
 }
 
@@ -86,14 +86,7 @@ int	format_str(unsigned char **str, va_list *ap, int fd)
 	int		count;
 
 	count = 0;
-	if (*(*str + 1) == '%')
-	{
-		ft_putchar_fd('%', fd);
-		*str += 2;
-		return (1);
-	}
-	else
-		fmt = parse_format(*str);
+	fmt = parse_format(*str);
 	if (!fmt)
 	{
 		ft_putchar_fd('%', fd);
@@ -101,7 +94,13 @@ int	format_str(unsigned char **str, va_list *ap, int fd)
 		return (1);
 	}
 	*str += fmt->len;
-	count = format_picker(fmt, ap, fd);
+	if (fmt->conversion == '%')
+	{
+		ft_putchar_fd('%', fd);
+		count = 1;
+	}
+	else
+		count = format_picker(fmt, ap, fd);
 	free(fmt);
 	return (count);
 }

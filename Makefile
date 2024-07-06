@@ -19,7 +19,7 @@ $(NAME): $(OBJ_FILES) $(LIBFT)
 	$(AR) $(ARFLAGS) $@ $?
 
 $(BUILD_DIR)/printtest.o: printtest.c $(HDR_FILES) Makefile | $(BUILD_DIR)
-	$(CC) -c $< -o $@ -I. -Ilibft
+	$(CC) -c $< -o $@ -I. -Ilibft -g -fsanitize=address
 
 $(BUILD_DIR)/%.o: %.c $(HDR_FILES) Makefile | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@

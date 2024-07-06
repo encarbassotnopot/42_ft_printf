@@ -1,1 +1,2 @@
-bueno falta fer tots els tipus i ho tenim.
+arreglar edge cases de conversió:
+- valors de 0, alters (#), gestionar què passa amb precisó, min_width i 0 simultanis en nums.
