@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:05:48 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/08 15:03:54 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:22:52 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,12 @@ void	fix_format(t_fmt **fmt)
 	}
 }
 
-t_fmt	*parse_format(unsigned char *c)
+int	parse_num_param(unsigned char **c)
 {
-	t_fmt				*fmt;
-	const unsigned char	*orig = c;
-	static void			(*set_flag[])(t_fmt *)
-		= {set_hash, set_zero, set_minus, set_space, set_plus};
-
-	fmt = init_fmt();
-	if (!fmt)
-		return (NULL);
-	while (ft_strchr_idx("#0- +", *(++c)) != -1)
-		set_flag[ft_strchr_idx("#0- +", *c)](fmt);
-	fmt->min_width = ft_raw_atoi_fwd((char **)&c);
-	if (*c == '.')
-	{
-		c++;
-		fmt->precision = ft_raw_atoi_fwd((char **)&c);
-	}
-	fmt->conversion = *c;
-	fmt->len = c - orig + 1;
-	fix_format(&fmt);
-	return (fmt);
+	if (**c != '0')
+		return (ft_raw_atoi_fwd((char **)c));
+	ft_raw_atoi_fwd((char **)c);
+	return (0);
 }
 
 int	format_picker(t_fmt *fmt, va_list *ap, int fd)
@@ -92,27 +76,26 @@ int	format_picker(t_fmt *fmt, va_list *ap, int fd)
 	return (0);
 }
 
-int	format_str(unsigned char **str, va_list *ap, int fd)
+t_fmt	*parse_format(unsigned char *c)
 {
-	t_fmt	*fmt;
-	int		count;
+	t_fmt				*fmt;
+	const unsigned char	*orig = c;
 
-	count = 0;
-	fmt = parse_format(*str);
+	static void (*set_flag[])(t_fmt *) = {set_hash, set_zero, set_minus,
+		set_space, set_plus};
+	fmt = init_fmt();
 	if (!fmt)
+		return (NULL);
+	while (ft_strchr_idx("#0- +", *(++c)) != -1)
+		set_flag[ft_strchr_idx("#0- +", *c)](fmt);
+	fmt->min_width = parse_num_param(&c);
+	if (*c == '.')
 	{
-		ft_putchar_fd('%', fd);
-		*str += 1;
-		return (1);
+		c++;
+		fmt->precision = parse_num_param(&c);
 	}
-	*str += fmt->len;
-	if (fmt->conversion == '%')
-	{
-		ft_putchar_fd('%', fd);
-		count = 1;
-	}
-	else
-		count = format_picker(fmt, ap, fd);
-	free(fmt);
-	return (count);
+	fmt->conversion = *c;
+	fmt->len = c - orig + 1;
+	fix_format(&fmt);
+	return (fmt);
 }

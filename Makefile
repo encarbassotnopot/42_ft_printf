@@ -1,4 +1,4 @@
-SRC_FILES = $(wildcard *.c)
+SRC_FILES = formatters.c ft_printf.c parser.c prints.c set_flag.c
 OBJ_FILES = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC_FILES))
 HDR_FILES = ft_printf.h
 
@@ -17,17 +17,14 @@ all: $(LIBFT) $(NAME)
 bonus: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJ_FILES)
-	cp $(LIBFT) $(NAME)
 	$(AR) $(ARFLAGS) $@ $?
-
-$(BUILD_DIR)/printtest.o: printtest.c Makefile | $(BUILD_DIR)
-	$(CC) -g -I. -Ilibft -c $< -o $@
 
 $(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
 	$(MAKE) -C libft
+	cp $(LIBFT) $(NAME)
 
 $(BUILD_DIR):
 	mkdir -p $@

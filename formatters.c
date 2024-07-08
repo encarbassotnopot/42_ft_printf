@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 11:15:11 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/06 17:34:02 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/08 17:17:18 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	pad_zeroes(t_fmt *fmt, char **orig)
 	int	len;
 
 	len = ft_strlen(*orig);
+	if (fmt->sign)
+		fmt->precision--;
 	if (fmt->precision > len)
 	{
 		len = fmt->precision;

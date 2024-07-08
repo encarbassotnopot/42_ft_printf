@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:50:27 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/05 11:12:41 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:32:04 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,32 @@
 #include "libft.h"
 #include <stdarg.h>
 #include <stdlib.h>
+
+
+int	format_str(unsigned char **str, va_list *ap, int fd)
+{
+	t_fmt	*fmt;
+	int		count;
+
+	count = 0;
+	fmt = parse_format(*str);
+	if (!fmt)
+	{
+		ft_putchar_fd('%', fd);
+		*str += 1;
+		return (1);
+	}
+	*str += fmt->len;
+	if (fmt->conversion == '%')
+	{
+		ft_putchar_fd('%', fd);
+		count = 1;
+	}
+	else
+		count = format_picker(fmt, ap, fd);
+	free(fmt);
+	return (count);
+}
 
 int	traverse_str(unsigned char *str, va_list *ap, int fd)
 {
