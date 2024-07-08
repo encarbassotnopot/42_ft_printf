@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:05:48 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/06 17:47:16 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/08 15:03:54 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,22 @@ t_fmt	*init_fmt(void)
 	return (fmt);
 }
 
-void	fix_format(t_fmt *fmt)
+void	fix_format(t_fmt **fmt)
 {
-	if (fmt->precision != -1 && fmt->padding == '0')
+	if (ft_strchr_idx("cspdiuxXo%", (*fmt)->conversion) == -1)
 	{
-		fmt->padding = '\0';
+		free(*fmt);
+		*fmt = NULL;
+		return ;
 	}
-	else if (fmt->min_width != -1 && fmt->padding == '0')
+	if ((*fmt)->precision != -1 && (*fmt)->padding == '0')
 	{
-		fmt->precision = fmt->min_width;
-		fmt->min_width = 0;
+		(*fmt)->padding = '\0';
+	}
+	else if ((*fmt)->min_width != -1 && (*fmt)->padding == '0')
+	{
+		(*fmt)->precision = (*fmt)->min_width;
+		(*fmt)->min_width = 0;
 	}
 }
 
@@ -50,9 +56,9 @@ t_fmt	*parse_format(unsigned char *c)
 {
 	t_fmt				*fmt;
 	const unsigned char	*orig = c;
+	static void			(*set_flag[])(t_fmt *)
+		= {set_hash, set_zero, set_minus, set_space, set_plus};
 
-	void (*set_flag[])(t_fmt *) = {set_hash, set_zero, set_minus, set_space,
-		set_plus};
 	fmt = init_fmt();
 	if (!fmt)
 		return (NULL);
@@ -64,17 +70,10 @@ t_fmt	*parse_format(unsigned char *c)
 		c++;
 		fmt->precision = ft_raw_atoi_fwd((char **)&c);
 	}
-	if (ft_strchr_idx("cspdiuxXo%", *c) != -1)
-	{
-		fmt->conversion = *c;
-		fmt->len = c - orig + 1;
-		return (fmt);
-	}
-	else
-	{
-		free(fmt);
-		return (NULL);
-	}
+	fmt->conversion = *c;
+	fmt->len = c - orig + 1;
+	fix_format(&fmt);
+	return (fmt);
 }
 
 int	format_picker(t_fmt *fmt, va_list *ap, int fd)
@@ -106,7 +105,6 @@ int	format_str(unsigned char **str, va_list *ap, int fd)
 		*str += 1;
 		return (1);
 	}
-	fix_format(fmt);
 	*str += fmt->len;
 	if (fmt->conversion == '%')
 	{
