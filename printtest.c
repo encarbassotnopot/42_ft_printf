@@ -6,12 +6,11 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 11:07:52 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/06 17:48:08 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/08 12:34:57 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 #include "ft_printf_utils.h"
-#include "libft.h"
 #include <stdio.h>
 
 int	main(void)
