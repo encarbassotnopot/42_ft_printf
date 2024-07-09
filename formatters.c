@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 11:15:11 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/08 17:17:18 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/09 11:06:07 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	pad(char **orig, char pad_ch, size_t total_len, char side)
 	ft_memset(pad, pad_ch, pad_len);
 	if (side == 'l')
 		new = ft_strjoin(pad, *orig);
-	else if (side == 'r')
+	else
 		new = ft_strjoin(*orig, pad);
 	free(*orig);
 	free(pad);
@@ -57,8 +57,6 @@ void	pad_zeroes(t_fmt *fmt, char **orig)
 	int	len;
 
 	len = ft_strlen(*orig);
-	if (fmt->sign)
-		fmt->precision--;
 	if (fmt->precision > len)
 	{
 		len = fmt->precision;

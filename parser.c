@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:05:48 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/08 17:22:52 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/09 12:16:11 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,25 @@ void	fix_format(t_fmt **fmt)
 	{
 		(*fmt)->padding = '\0';
 	}
-	else if ((*fmt)->min_width != -1 && (*fmt)->padding == '0')
+	else if ((*fmt)->min_width != -1 && (*fmt)->padding == '0'
+			&& ft_strchr_idx("pdiuxXo", (*fmt)->conversion) != -1)
 	{
 		(*fmt)->precision = (*fmt)->min_width;
 		(*fmt)->min_width = 0;
 	}
 }
 
-int	parse_num_param(unsigned char **c)
+int	parse_prec(unsigned char **c)
 {
-	if (**c != '0')
+	if (**c == '-')
+	{
+		*c += 1;
+		if (**c == '0')
+			return (0);
+		ft_raw_atoi_fwd((char **)c);
+	}
+	else
 		return (ft_raw_atoi_fwd((char **)c));
-	ft_raw_atoi_fwd((char **)c);
 	return (0);
 }
 
@@ -88,11 +95,11 @@ t_fmt	*parse_format(unsigned char *c)
 		return (NULL);
 	while (ft_strchr_idx("#0- +", *(++c)) != -1)
 		set_flag[ft_strchr_idx("#0- +", *c)](fmt);
-	fmt->min_width = parse_num_param(&c);
+	fmt->min_width = ft_raw_atoi_fwd((char **)&c);
 	if (*c == '.')
 	{
 		c++;
-		fmt->precision = parse_num_param(&c);
+		fmt->precision = parse_prec(&c);
 	}
 	fmt->conversion = *c;
 	fmt->len = c - orig + 1;
