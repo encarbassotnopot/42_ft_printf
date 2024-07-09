@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/09 12:18:01 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:10:36 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	print_char(t_fmt *fmt, unsigned char arg, int fd)
 		return (0);
 	out[0] = arg;
 	pad_spaces(fmt, &out);
-	len = ft_strlen(out);
-	ft_putstr_fd(out, fd);
+	len = (int)ft_putstr_fd_st(out, fd);
 	free(out);
 	return (len);
 }
@@ -45,8 +44,7 @@ int	print_str(t_fmt *fmt, const char *arg, int fd)
 	if (!out)
 		return (0);
 	pad_spaces(fmt, &out);
-	len = ft_strlen(out);
-	ft_putstr_fd(out, fd);
+	len = (int)ft_putstr_fd_st(out, fd);
 	free(out);
 	return (len);
 }
@@ -64,8 +62,7 @@ int	print_ptr(t_fmt *fmt, void *arg, int fd)
 	num = ft_sttoa_base((size_t)arg, "0123456789abcdef");
 	pad_zeroes(fmt, &num);
 	pad_spaces(fmt, &num);
-	len = ft_strlen(num);
-	ft_putstr_fd(num, fd);
+	len = (int)ft_putstr_fd_st(num, fd);
 	free(num);
 	return (len);
 }
@@ -89,8 +86,7 @@ int	print_int(t_fmt *fmt, int arg, int fd)
 	else
 		num = ft_calloc(sizeof(char), 1);
 	pad_spaces(fmt, &num);
-	len = ft_strlen(num);
-	ft_putstr_fd(num, fd);
+	len = (int)ft_putstr_fd_st(num, fd);
 	free(num);
 	return (len);
 }
@@ -110,8 +106,7 @@ int	print_unsigned(t_fmt *fmt, unsigned int arg, int fd)
 	else
 		num = ft_calloc(sizeof(char), 1);
 	pad_spaces(fmt, &num);
-	len = ft_strlen(num);
-	ft_putstr_fd(num, fd);
+	len = (int)ft_putstr_fd_st(num, fd);
 	free(num);
 	return (len);
 }
