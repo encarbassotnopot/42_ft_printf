@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/09 12:13:34 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/09 12:18:01 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	print_str(t_fmt *fmt, const char *arg, int fd)
 
 	if (!arg && (fmt->precision == -1 || fmt->precision >= 6))
 		out = ft_strdup("(null)");
+	else if (!arg)
+		out = ft_strdup("");
 	else
 		out = ft_substr(arg, 0, fmt->precision);
 	if (!out)
