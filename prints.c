@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/09 15:59:38 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/09 16:18:18 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int	print_int(t_fmt *fmt, int arg, int fd)
 	{
 		fmt->sign = '-';
 		arg = ~(arg - 1);
+		if (fmt->precision > 0 && fmt->padding == '0')
+			fmt->precision--;
 	}
 	if (!(fmt->precision == 0 && arg == 0))
 	{

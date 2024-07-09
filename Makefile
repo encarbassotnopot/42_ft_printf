@@ -1,6 +1,6 @@
 SRC_FILES = formatters.c ft_printf.c parser.c prints.c set_flag.c
 OBJ_FILES = $(patsubst %.c,$(BUILD_DIR)/%.o,$(SRC_FILES))
-HDR_FILES = ft_printf.h
+HDR_FILES = ft_printf.h ft_printf_utils.h
 
 BUILD_DIR = build
 
@@ -19,7 +19,7 @@ bonus: $(LIBFT) $(NAME)
 $(NAME): $(OBJ_FILES)
 	$(AR) $(ARFLAGS) $@ $?
 
-$(BUILD_DIR)/%.o: %.c Makefile | $(BUILD_DIR)
+$(BUILD_DIR)/%.o: %.c Makefile $(HDR_FILES) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
