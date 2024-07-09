@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 20:50:27 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/08 16:32:04 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/09 16:03:10 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include "libft.h"
 #include <stdarg.h>
 #include <stdlib.h>
-
 
 int	format_str(unsigned char **str, va_list *ap, int fd)
 {
@@ -45,17 +44,18 @@ int	format_str(unsigned char **str, va_list *ap, int fd)
 int	traverse_str(unsigned char *str, va_list *ap, int fd)
 {
 	int	count;
+	int	last_write;
 
 	count = 0;
 	while (*str)
 	{
 		if (*str == '%')
-			count += format_str(&str, ap, fd);
+			last_write = format_str(&str, ap, fd);
 		else
-		{
-			ft_putchar_fd(*str++, fd);
-			count++;
-		}
+			last_write = (int)ft_putchar_fd_st(*str++, fd);
+		if (last_write < 0)
+			return (-1);
+		count += last_write;
 	}
 	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 10:16:47 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/09 14:10:36 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/09 15:59:38 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,30 @@
 
 int	print_char(t_fmt *fmt, unsigned char arg, int fd)
 {
-	char	*out;
 	int		len;
+	int		wrote;
 
-	out = ft_calloc(sizeof(char), 2);
-	if (!out)
-		return (0);
-	out[0] = arg;
-	pad_spaces(fmt, &out);
-	len = (int)ft_putstr_fd_st(out, fd);
-	free(out);
+	len = 0;
+	while (fmt->min_width > 1 && fmt->padding != '-')
+	{
+		wrote = (int)ft_putchar_fd_st(' ', fd);
+		if (wrote < 0)
+			return (-1);
+		len += wrote;
+		fmt->min_width--;
+	}
+	wrote = (int)ft_putchar_fd_st(arg, fd);
+	if (wrote < 0)
+		return (-1);
+	len += wrote;
+	while (fmt->min_width > 1 && fmt->padding == '-')
+	{
+		wrote = (int)ft_putchar_fd_st(' ', fd);
+		if (wrote < 0)
+			return (-1);
+		len += wrote;
+		fmt->min_width--;
+	}
 	return (len);
 }
 
