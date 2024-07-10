@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:05:48 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/10 10:07:34 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/10 10:13:53 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ t_fmt	*parse_format(unsigned char *c)
 {
 	t_fmt				*fmt;
 	const unsigned char	*orig = c;
+	static void			(*set_flag[])(t_fmt *)
+		= {set_hash, set_zero, set_minus, set_space, set_plus};
 
-	static void (*set_flag[])(t_fmt *) = {set_hash, set_zero, set_minus,
-		set_space, set_plus};
 	fmt = init_fmt();
 	if (!fmt)
 		return (NULL);
