@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 15:44:44 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/08 17:39:53 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/10 10:05:14 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 
 int	main(void)
 {
-	printf("%.03s", "hi low");
-	ft_printf("%.03s", "hi low");
+	printf("%0d", 0);
+	ft_printf("%0d", 0);
 }

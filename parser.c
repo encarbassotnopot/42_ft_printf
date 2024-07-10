@@ -6,7 +6,7 @@
 /*   By: ecoma-ba <ecoma-ba@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 12:05:48 by ecoma-ba          #+#    #+#             */
-/*   Updated: 2024/07/09 16:19:37 by ecoma-ba         ###   ########.fr       */
+/*   Updated: 2024/07/10 10:07:34 by ecoma-ba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ void	fix_format(t_fmt **fmt)
 		(*fmt)->padding = '\0';
 	}
 	else if ((*fmt)->min_width != -1 && (*fmt)->padding == '0'
-			&& ft_strchr_idx("pdiuxXo", (*fmt)->conversion) != -1)
+		&& ft_strchr_idx("pdiuxXo", (*fmt)->conversion) != -1)
 	{
 		(*fmt)->precision = (*fmt)->min_width;
+		if ((*fmt)->precision == 0)
+			(*fmt)->precision = 1;
 		(*fmt)->min_width = 0;
 	}
 }
