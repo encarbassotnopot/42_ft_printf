@@ -5,16 +5,13 @@ HDR_FILES = ft_printf.h ft_printf_utils.h
 BUILD_DIR = build
 
 NAME = libftprintf.a
-LIBFT = libft/libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I. -Ilibft
+CFLAGS = -Wall -Wextra -Werror -g -I.
 
 ARFLAGS = rcs
 
-all: $(LIBFT) $(NAME) 
-
-bonus: $(LIBFT) $(NAME)
+all: $(NAME) 
 
 $(NAME): $(OBJ_FILES)
 	$(AR) $(ARFLAGS) $@ $?
@@ -22,27 +19,15 @@ $(NAME): $(OBJ_FILES)
 $(BUILD_DIR)/%.o: %.c Makefile $(HDR_FILES) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT):
-	$(MAKE) -C libft
-	cp $(LIBFT) $(NAME)
-
 $(BUILD_DIR):
 	mkdir -p $@
 
 clean reclean:
 	rm -rf $(BUILD_DIR)
-	$(MAKE) -C libft clean
 
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) -C libft fclean
 
 re: fclean all reclean
 
-rebonus: fclean bonus reclean
-
-info:
-	$(info $(SRC_FILES))
-	$(info $(SRC_BONUS))
-
-.PHONY: all fclean reclean re bonus rebonus info
+.PHONY: all fclean reclean re 
