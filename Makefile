@@ -4,18 +4,20 @@ HDR_FILES = ft_printf.h ft_printf_utils.h
 
 BUILD_DIR = build
 
-NAME = libftprintf.so
+NAME = libftprintf
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g -I. -I../libft -fPIC
 
 ARFLAGS = rcs
 
-all: $(NAME) 
+all: $(NAME).a $(NAME).so
 
-$(NAME): $(OBJ_FILES)
+$(NAME).so: $(OBJ_FILES)
 	$(CC) -shared -o $@ $^
-	#$(AR) $(ARFLAGS) $@ $?
+
+$(NAME).a: $(OBJ_FILES)
+	$(AR) $(ARFLAGS) $@ $?
 
 $(BUILD_DIR)/%.o: %.c Makefile $(HDR_FILES) | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
